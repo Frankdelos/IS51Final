@@ -10,7 +10,7 @@ export interface IBike {
   description: string;
   price: number;
   quantity: number;
-
+  subTotal?: number;
 }
 
 @Component({
@@ -31,7 +31,7 @@ export class CartComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    const savedBikes = JSON.parse(localStorage.getItem('tests'));
+    const savedBikes = JSON.parse(localStorage.getItem('bikes'));
 
     if (savedBikes && savedBikes.length > 0) {
       this.bikes = savedBikes;
@@ -73,8 +73,9 @@ export class CartComponent implements OnInit {
       image: "../../assets/bike2.jpeg",
       description: null,
       price: 4000,
-      quantity: 1
+      quantity: 1,
     }
+    let subTotal= bike.price*bike.quantity;
     this.bikes.unshift(bike);
     this.saveToLocalStorage('bikes', this.bikes);
   }
@@ -117,6 +118,9 @@ export class CartComponent implements OnInit {
       firstName = this.nameParams.slice(indexOfComma + 1, this.nameParams.length);
       lastName = this.nameParams.slice(0, indexOfComma);
       fullName = firstName + '' + lastName;
+
+
+     
 
       const total = this.bikes.reduce((acc: number, item: IBike) => {
         acc += item.quantity * item.price;
