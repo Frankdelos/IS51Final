@@ -13,5 +13,9 @@ export class MainNavComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  showAbout(){
+    this.toastService.showToast('success', 5000, 'This app was created by Franklin (c)');
+ 
+  }
+ 
 }
